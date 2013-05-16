@@ -183,6 +183,7 @@ Class ECS{
 	}
 	
 	protected static function auth($params=array(),$curl=true){
+		// $params 请求数据，$curl 是否需要请求出去,默认true,为false时会返回签名的URL
 		self::$data = array(
 			// 公共参数
 			'Format' => 'XML',
@@ -197,9 +198,7 @@ Class ECS{
 			self::$data[$k]=$v;
 		}
 		self::$data['Signature'] = self::sign(self::$data, self::$accessKeySec);
-		//print_r(self::$data);
 		$url= self::$accessGetway .'/?' . self::httpParams(self::$data);
-		//echo $url."\r\n";
 		if($curl===true){
 			return self::xml2array(self::curl($url));
 		}else{
@@ -214,27 +213,6 @@ Class ECS{
 		if(self::$data===null)self::$data=array();
 		date_default_timezone_set("GMT");
 	}
-	
-	/**
-	 Create ECS Instance
-	 It's not working to use now.
-	 */
-	public function createInstance($regionCode,$maxBandwidthIn,$maxBandwidthOut,$diskSize,$instanceType,$instanceId,$hostName,$groupCode,$password,$imageCode,$zoneCode){
-		$data=array();
-		$data['Action']="CreateInstance";
-		$data['RegionCode']=$regionCode;
-		$data['MaxBandwidthIn']=$maxBandwidthIn;
-		$data['MaxBandwidthOut']=$maxBandwidthOut;
-		$data['DiskSize']=$diskSize;
-		$data['InstanceType']=$instanceType;
-		$data['InstanceId']=$instanceId;
-		$data['HostName']=$hostName;
-		$data['GroupCode']=$groupCode;
-		$data['Password']=$password;
-		$data['ImageCode']=$imageCode;
-		$data['ZoneCode']=$zoneCode;
-		return self::auth($data);
-	}	 
 	
 	/**
 	 Start/PowerON the Given ECS Instance
@@ -486,7 +464,7 @@ Class ECS{
 	 get Monitor Data of a given instance
 	 */
 	public function getMonitorData($regionId,$instanceId=null,$time=null,$pageNumber=null,$pageSize=null){
-	    // The time and the instanceId can not request them all at the present time.
+	    // The time and the instanceId can not request them all at the present time. 当前不支持查询某实例 在某时间的监控信息。
 		$data=array();
 		$data['Action']="GetMonitorData";
 		$data['RegionId']=$regionId;
