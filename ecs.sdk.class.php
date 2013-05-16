@@ -219,7 +219,7 @@ Class ECS{
 	 Create ECS Instance
 	 It's not working to use now.
 	 */
-	public function createInstance($regionCode,$maxBandwidthIn,$maxBandwidthOut,$diskSize,$instanceType,$instanceId,$HostName,$groupCode,$password,$imageCode,$zoneCode){
+	public function createInstance($regionCode,$maxBandwidthIn,$maxBandwidthOut,$diskSize,$instanceType,$instanceId,$hostName,$groupCode,$password,$imageCode,$zoneCode){
 		$data=array();
 		$data['Action']="CreateInstance";
 		$data['RegionCode']=$regionCode;
@@ -290,7 +290,7 @@ Class ECS{
 		HostName is the new hostname.
 		securityGroupId is the new Sec Group
 	 */
-	public function modifyInstanceAttribute($instanceId,$Password="",$HostName="",$SecurityGroupId=""){
+	public function modifyInstanceAttribute($instanceId,$password="",$hostName="",$securityGroupId=""){
 		$data=array();
 		$data['Action']="ModifyInstanceAttribute";
 		$data['InstanceId']=$instanceId;
@@ -485,11 +485,16 @@ Class ECS{
 	/**
 	 get Monitor Data of a given instance
 	 */
-	public function getMonitorData($regionId,$instanceId){
+	public function getMonitorData($regionId,$instanceId=null,$time=null,$pageNumber=null,$pageSize=null){
+	    // The time and the instanceId can not request them all at the present time.
 		$data=array();
 		$data['Action']="GetMonitorData";
 		$data['RegionId']=$regionId;
-		$data['InstanceId']=$instanceId;
+		if($instanceId!==null)$data['InstanceId']=$instanceId;
+		if($time!==null)$data['Time']=$time;
+		if($pageNumber!==null)$data['PageNumber']=$pageNumber;
+		if($pageSize!==null)$data['PageSize']=$pageSize;
+		
 		return self::auth($data);
 	}
 
