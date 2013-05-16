@@ -3,6 +3,8 @@
   The php sdk class for alibaba cloud ecs api.
   Author: enj0y
   Email: hackes@outlook.com
+  Project page: https://github.com/thislancorp/AliECS_PHP_SDK/
+  Latest ECS Api reference: http://oss.aliyuncs.com/developers/API/ECS-API-Reference.pdf
  */
 Class ECS{
 	protected static $accessKeyID=null,$accessKeySec=null,$accessGetway="http://ecs.aliyuncs.com",$data=null,$version='2013-01-10';
@@ -369,7 +371,7 @@ Class ECS{
 	/**
 	 Create a new SecurityGroup
 	 */
-	public function createSecurityGroup($regionId,$Description){
+	public function createSecurityGroup($regionId,$description){
 		$data=array();
 		$data['Action']="CreateSecurityGroup";
 		$data['RegionId']=$regionId;
@@ -389,7 +391,7 @@ Class ECS{
 	 Policy 授权策略，参数值可为：accept（接受访问）默认值为：accept
 	 NicType 网络类型，取值：internet|intranet；默认值为 internet
 	 */
-	public function AuthorizeSecurityGroup($securityGroupId,$regionId,$ipProtocol,$portRange,$sourceGroupId=0,$sourceCidrIp=0,$policy="accept",$nicType="internet"){
+	public function authorizeSecurityGroup($securityGroupId,$regionId,$ipProtocol,$portRange,$sourceGroupId=0,$sourceCidrIp=0,$policy="accept",$nicType="internet"){
 		$data=array();
 		$data['Action']="AuthorizeSecurityGroup";
 		$data['SecurityGroupId']=$securityGroupId;
@@ -409,7 +411,7 @@ Class ECS{
 	 RegionId 安全组所属 Region ID
 	 NicType String 取值：internet|intranet 不指定时默认值为 internet
 	 */
-	public function DescribeSecurityGroupAttribute($securityGroupId,$regionId,$nicType="internet"){
+	public function describeSecurityGroupAttribute($securityGroupId,$regionId,$nicType="internet"){
 		$data=array();
 		$data['Action']="DescribeSecurityGroupAttribute";
 		$data['SecurityGroupId']=$securityGroupId;
@@ -425,7 +427,7 @@ Class ECS{
 	 PageNumber 当前页码，起始值为 1，默认值为 1
 	 PageSize 分页查询时设置的每页行数，最大值 50，默认值为 10
 	 */
-	public function DescribeSecurityGroups($regionId,$pageNumber=1,$pageSize=10){
+	public function describeSecurityGroups($regionId,$pageNumber=1,$pageSize=10){
 		$data=array();
 		$data['Action']="DescribeSecurityGroups";
 		$data['RegionId']=$regionId;
@@ -446,7 +448,7 @@ Class ECS{
 	 Policy 授权策略，参数值可为：accept（接受访问）默认值为：accept
 	 NicType 网络类型，取值：internet|intranet；默认值为 internet
 	 */
-	public function RevokeSecurityGroup($securityGroupId,$regionId,$ipProtocol,$portRange,$sourceGroupId=0,$sourceCidrIp=0,$policy="accept",$nicType="internet"){
+	public function revokeSecurityGroup($securityGroupId,$regionId,$ipProtocol,$portRange,$sourceGroupId=0,$sourceCidrIp=0,$policy="accept",$nicType="internet"){
 		$data=array();
 		$data['Action']="RevokeSecurityGroup";
 		$data['SecurityGroupId']=$securityGroupId;
